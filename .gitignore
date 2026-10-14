@@ -1,0 +1,21 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments & Secrets (Protect API Keys)
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# Temporary run files
+output_run_*.csv
+*.log
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
