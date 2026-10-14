@@ -8,7 +8,7 @@ A smart assistant that monitors shipping costs across routes and flags unexplain
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the interactive Streamlit Web UI (Recommended for Round 2 Demo)
+# Run the interactive Streamlit Web UI
 python -m streamlit run app.py
 
 # Run the command line analysis
@@ -153,16 +153,4 @@ python main.py --query "What happened with Delhi-Jaipur in November 2024?"
 
 Parses the question to extract route and time period, then shows matching flagged entries with their full analysis and notes.
 
-## 10-Minute Round 2 Walkthrough Guide
-
-Here is a ready-to-use structure for the 10-minute presentation:
-
-| Time | Agenda | Key Talking Points |
-|------|--------|---------------------|
-| **0:00 - 2:00** | **Problem & Approach** | Problem: Spot unjustified freight cost creep. Core logic: Group by route & week (Mon–Sun), compute INR/(tonne·km), compare against trailing 8-week history (no look-ahead) and peer routes (same `route_type`). |
-| **2:00 - 4:00** | **System Architecture & Code** | Modular design: `data_loader.py` (ISO weeks, aggregation), `detector.py` (strict formulas, no look-ahead), `note_retriever.py` (semantic search + temporal/negation filters), `formatter.py` (exact schema compliance). |
-| **4:00 - 6:00** | **AI & Anti-Hallucination Guardrails** | Why semantic retrieval with local SBERT (`all-MiniLM-L6-v2`) instead of naive keyword matching. 3 guardrails: temporal distance <= 21 days, route match (`All Routes` or exact), and negation filtering (notes stating "costs were not affected" like N005/N006/N010 are never cited as justifications). |
-| **6:00 - 7:30** | **Validation & Reproducibility Demo** | Run `python eval_harness.py` live (shows 0 failures across format, citations, and ground-truth cases). Run `python main.py --reproduce` showing SHA-256 hash match across 3 untouched runs. |
-| **7:30 - 8:30** | **Stretch Goal & Efficiency** | Demo `python main.py --query "Why did Delhi-Jaipur get pricier in November?"`. Highlight $0 run cost (runs on CPU in ~1.3s, 0 token spend). |
-| **8:30 - 10:00** | **Trade-offs & Next Steps** | Trade-offs: Semantic embeddings vs LLM prompting (embeddings are deterministic, instant, free, and verifiable); Future work: Dynamic thresholds based on variance (z-score), multi-modal routing graphs. |
 
