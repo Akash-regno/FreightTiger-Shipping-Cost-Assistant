@@ -18,8 +18,20 @@ from src.config import (
 )
 
 import os
+import logging
+import warnings
+
+# Suppress noisy third-party warnings & progress bars
+warnings.filterwarnings("ignore")
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+logging.disable(logging.WARNING)
+
+try:
+    from huggingface_hub.utils import disable_progress_bars
+    disable_progress_bars()
+except Exception:
+    pass
 
 # ─── Embedding backend selection & singleton model cache ─────────────────────
 _USE_SBERT = False
