@@ -48,7 +48,9 @@ context_notes.csv ─────┘                                         ↑
    - Reads shipment records and context notes from CSV.
    - Assigns each shipment to its ISO week (Monday–Sunday); `week_of` represents Monday.
    - Computes group cost per tonne-km using the exact formula from the brief:
-     $$\text{Cost per tonne-km} = \frac{\sum \text{freight\_cost\_inr}}{\sum (\text{quantity\_tonnes} \times \text{distance\_km})}$$
+     ```text
+     Cost per tonne-km = sum(freight_cost_inr) / sum(quantity_tonnes * distance_km)
+     ```
      This weighted aggregation ensures 100% numerical alignment with `sample_output_format_v2.csv`.
 
 2. **Anomaly Detection & Comparison Baselines** (`src/detector.py`)
